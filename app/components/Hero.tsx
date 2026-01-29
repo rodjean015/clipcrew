@@ -30,9 +30,18 @@ export default function Hero() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <button className="bg-yellow-400 text-black px-8 py-4 font-semibold hover:bg-yellow-300 transition">
-                            Book Appointment
+                        <button
+                            className="bg-yellow-400 text-black px-8 py-4 font-semibold hover:bg-yellow-300 transition"
+                        >
+                            <a
+                                href="https://www.facebook.com/profile.php?id=61574600193763"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Book Appointment
+                            </a>
                         </button>
+
 
                         <button className="border border-white text-white px-8 py-4 font-semibold hover:bg-white hover:text-black transition">
                             View Services

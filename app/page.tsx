@@ -11,11 +11,11 @@ export default function Home() {
     <>
       <Navbar />
       <Hero />
-      {/* <Services />
+      <Services />
       <About />
       <Gallery />
       <Contact />
-      <Footer /> */}
+      <Footer />
     </>
   );
 }
