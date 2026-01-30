@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
+const navItems = ["Our Product", "About Us", "Contact Us"];
+
 export default function Navbar() {
     const [open, setOpen] = useState(false);
 
@@ -28,12 +30,17 @@ export default function Navbar() {
 
                 {/* Desktop Nav */}
                 <ul className="hidden md:flex gap-8 text-sm text-white">
-                    {["Services", "About", "Gallery", "Contact"].map((item) => (
+                    {navItems.map((item) => (
                         <li
                             key={item}
-                            className="hover:text-yellow-400 cursor-pointer transition"
+                            className="group relative cursor-pointer"
                         >
-                            {item}
+                            <span className="transition-colors duration-300 group-hover:text-yellow-400">
+                                {item}
+                            </span>
+
+                            {/* Underline */}
+                            <span className="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-yellow-400 transition-all duration-300 group-hover:w-full group-hover:left-0" />
                         </li>
                     ))}
                 </ul>
@@ -52,13 +59,18 @@ export default function Navbar() {
             {open && (
                 <div className="md:hidden bg-black border-t border-white/10">
                     <ul className="flex flex-col items-center gap-6 py-6 text-white text-sm">
-                        {["Services", "About", "Gallery", "Contact"].map((item) => (
+                        {navItems.map((item) => (
                             <li
                                 key={item}
                                 onClick={() => setOpen(false)}
-                                className="hover:text-yellow-400 cursor-pointer transition"
+                                className="group relative cursor-pointer"
                             >
-                                {item}
+                                <span className="transition-colors duration-300 group-hover:text-yellow-400">
+                                    {item}
+                                </span>
+
+                                {/* Underline */}
+                                <span className="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-yellow-400 transition-all duration-300 group-hover:w-full group-hover:left-0" />
                             </li>
                         ))}
                     </ul>
