@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import LoaderLayout from "./LoaderLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "CLIPCREW",
-  description: "CLIP CREW HAIR STUDIO - Fresh cuts, bold colors, cool style. Walk in and stand out!",
+  description:
+    "CLIP CREW HAIR STUDIO - Fresh cuts, bold colors, cool style. Walk in and stand out!",
 };
 
 export default function RootLayout({
@@ -27,7 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <LoaderLayout>{children}</LoaderLayout>
       </body>
     </html>
   );

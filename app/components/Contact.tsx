@@ -1,66 +1,110 @@
+"use client";
+
+import { FaInstagram, FaFacebookF } from "react-icons/fa";
+import { motion } from "framer-motion";
+
 export default function Contact() {
     return (
-        <section className="py-24 bg-black">
-            <div className="max-w-5xl mx-auto px-6 text-center">
-                <h3 className="text-4xl font-semibold tracking-tight mb-8 text-white">
+        <section className="py-32 bg-gradient-to-b from-black via-zinc-950 to-black">
+            <div className="max-w-6xl mx-auto px-6 text-center">
+                {/* Title */}
+                <motion.h3
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7 }}
+                    className="text-4xl md:text-5xl font-light tracking-wide text-white mb-6"
+                >
                     Contact Us
-                </h3>
+                </motion.h3>
 
-                <div className="w-12 h-px bg-gold mx-auto mb-10 opacity-70" />
+                {/* Divider */}
+                <div className="w-16 h-px bg-gradient-to-r from-transparent via-yellow-500/70 to-transparent mx-auto mb-12" />
 
-                <p className="text-zinc-500 text-lg max-w-2xl mx-auto mb-12 leading-relaxed">
+                {/* Intro */}
+                <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.1 }}
+                    className="text-zinc-400 text-lg max-w-2xl mx-auto mb-20 leading-relaxed"
+                >
                     Visit our studio for a refined grooming experience. Whether you’re
                     booking an appointment or have a question, we’re here to help.
-                </p>
+                </motion.p>
 
-                <div className="grid gap-10 md:grid-cols-3 text-center">
-                    {/* Location */}
-                    <div>
-                        <p className="text-zinc-400 uppercase tracking-widest text-sm mb-2">
-                            Location
-                        </p>
-                        <p className="text-zinc-400">
-                            123 Main Street<br />
-                            New York, NY 10001
-                        </p>
-                    </div>
-
-                    {/* Phone */}
-                    <div>
-                        <p className="text-zinc-400 uppercase tracking-widest text-sm mb-2">
-                            Phone
-                        </p>
-                        <p className="text-zinc-400">
-                            (555) 123-4567
-                        </p>
-                    </div>
-
-                    {/* Hours */}
-                    <div>
-                        <p className="text-zinc-400 uppercase tracking-widest text-sm mb-2">
-                            Hours
-                        </p>
-                        <p className="text-zinc-400">
-                            Mon - Sat: 9am - 7pm<br />
-                            Sunday: Closed
-                        </p>
-                    </div>
-                </div>
-
-                {/* CTA */}
-                <div className="mt-14">
-                    <button
-                        className="bg-yellow-400 text-black px-8 py-4 font-semibold hover:bg-yellow-300 transition"
-                    >
-                        <a
-                            href="https://www.facebook.com/profile.php?id=61574600193763"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                {/* Info Grid */}
+                <div className="grid gap-16 md:grid-cols-4">
+                    {[
+                        {
+                            label: "Location",
+                            content: (
+                                <>
+                                    46A F. San Juan Cor. Liamzon St.<br />
+                                    San Jose, Rodriguez, Rizal<br />
+                                    Philippines 1860
+                                </>
+                            ),
+                        },
+                        {
+                            label: "Phone",
+                            content: "+63 905 487 6857",
+                        },
+                        {
+                            label: "Hours",
+                            content: (
+                                <>
+                                    Mon – Sat: 9:00am – 7:00pm<br />
+                                    Sunday: Closed
+                                </>
+                            ),
+                        },
+                        {
+                            label: "Follow Us",
+                            content: (
+                                <div className="flex justify-center gap-8">
+                                    {[FaInstagram, FaFacebookF].map((Icon, i) => (
+                                        <a
+                                            key={i}
+                                            href="#"
+                                            className="text-zinc-500 transition-all duration-300
+                       hover:text-yellow-500
+                       hover:scale-110
+                       hover:drop-shadow-[0_0_10px_rgba(212,175,55,0.5)]"
+                                        >
+                                            <Icon size={22} />
+                                        </a>
+                                    ))}
+                                </div>
+                            ),
+                        },
+                    ].map((item, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, delay: 0.15 * index }}
+                            className="relative rounded-xl border border-white/10 bg-zinc-950/40 p-8"
                         >
-                            Book an Appointment
-                        </a>
-                    </button>
+                            <p className="text-xs uppercase tracking-widest text-zinc-300 mb-4">
+                                {item.label}
+                            </p>
+
+                            {/* Change from <p> to <div> to avoid nesting errors */}
+                            <div className="text-zinc-500 leading-relaxed">
+                                {item.content}
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
+
+                {/* Footer note */}
+                <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.6 }}
+                    className="mt-24 text-xs tracking-widest text-zinc-600 uppercase"
+                >
+                    © {new Date().getFullYear()} • Crafted with care
+                </motion.p>
             </div>
         </section>
     );

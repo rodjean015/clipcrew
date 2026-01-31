@@ -19,14 +19,11 @@ export default function Hero() {
             <div className="relative z-10 h-full flex items-center justify-center px-6">
                 <div className="max-w-3xl text-center">
                     <h1 className="text-3xl md:text-6xl text-white mb-4 tracking-tight">
-                        Precision Grooming.<br className="hidden md:block" />
-                        Timeless Style.
+                        Clip Crew Hair Studio.
                     </h1>
 
                     <p className="text-gray-300 text-lg md:text-xl mb-10 leading-relaxed">
-                        CLIPCREW is where modern technique meets classic barbering.
-                        Experience expert cuts, detailed fades, and premium grooming in a
-                        refined environment.
+                        Fresh cuts, bold colors, cool style.
                     </p>
                 </div>
             </div>
