@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function Contact() {
     return (
-        <section className="py-32 bg-gradient-to-b from-black via-zinc-950 to-black">
+        <section className="py-32 bg-gradient-to-b from-black via-zinc-950 to-black" id="contact">
             <div className="max-w-6xl mx-auto px-6 text-center">
                 {/* Title */}
                 <motion.h3

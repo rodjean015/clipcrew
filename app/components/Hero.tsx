@@ -1,6 +1,6 @@
 export default function Hero() {
     return (
-        <section className="relative pt-24 h-[60vh] w-full overflow-hidden">
+        <section className="relative pt-24 h-[60vh] w-full overflow-hidden" id="home">
 
             {/* Background Video */}
             <video

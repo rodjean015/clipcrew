@@ -22,7 +22,7 @@ const items = [
 
 export default function Features() {
     return (
-        <section className="py-28 bg-black">
+        <section className="py-28 bg-black" id="about">
             <div className="max-w-6xl mx-auto px-6 text-center">
                 {/* Title */}
                 <motion.h3

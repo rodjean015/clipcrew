@@ -1,16 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
-const navItems = ["Our Product", "About Us", "Contact Us"];
+const navItems = [
+    { label: "Our Product", id: "product" },
+    { label: "About Us", id: "about" },
+    { label: "Contact Us", id: "contact" },
+];
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
+    const [visible, setVisible] = useState(true);
+
+    useEffect(() => {
+        let lastScrollY = window.scrollY;
+
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                setVisible(false);
+            } else {
+                setVisible(true);
+            }
+
+            lastScrollY = currentScrollY;
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return (
-        <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 w-[92%] max-w-7xl z-50">
+        <nav
+            className={`fixed top-4 left-1/2 transform -translate-x-1/2 w-[92%] max-w-7xl z-50 transition-transform duration-300 ${visible ? "translate-y-0" : "-translate-y-24"
+                }`}
+        >
             <div className="rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 shadow-xl">
                 <div className="px-6 py-4 flex justify-between items-center">
 
@@ -32,12 +59,15 @@ export default function Navbar() {
                     {/* Desktop Nav */}
                     <ul className="hidden md:flex gap-10 text-sm text-white">
                         {navItems.map((item) => (
-                            <li key={item} className="group relative cursor-pointer">
-                                <span className="transition-colors duration-300 group-hover:text-yellow-500">
-                                    {item}
-                                </span>
+                            <li key={item.id} className="group relative cursor-pointer">
+                                <a
+                                    href={`#${item.id}`}
+                                    className="transition-colors duration-300 group-hover:text-yellow-500"
+                                >
+                                    {item.label}
+                                </a>
                                 <span className="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-yellow-500
-                                   transition-all duration-300 group-hover:w-full group-hover:left-0" />
+                  transition-all duration-300 group-hover:w-full group-hover:left-0" />
                             </li>
                         ))}
                     </ul>
@@ -59,15 +89,18 @@ export default function Navbar() {
                     <ul className="flex flex-col items-center gap-6 py-6 text-white text-sm">
                         {navItems.map((item) => (
                             <li
-                                key={item}
+                                key={item.id}
                                 onClick={() => setOpen(false)}
                                 className="group relative cursor-pointer"
                             >
-                                <span className="transition-colors duration-300 group-hover:text-yellow-500">
-                                    {item}
-                                </span>
+                                <a
+                                    href={`#${item.id}`}
+                                    className="transition-colors duration-300 group-hover:text-yellow-500"
+                                >
+                                    {item.label}
+                                </a>
                                 <span className="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-yellow-500
-                                 transition-all duration-300 group-hover:w-full group-hover:left-0" />
+                  transition-all duration-300 group-hover:w-full group-hover:left-0" />
                             </li>
                         ))}
                     </ul>

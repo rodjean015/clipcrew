@@ -45,7 +45,7 @@ export default function Product() {
     }, [showArrows]);
 
     return (
-        <section className="relative py-28 bg-black overflow-hidden">
+        <section className="relative py-28 bg-black overflow-hidden" id="product">
             {/* Elegant Background */}
             <div className="absolute inset-0 -z-10">
                 <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-900 to-black" />
