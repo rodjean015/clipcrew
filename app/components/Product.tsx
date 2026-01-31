@@ -1,127 +1,137 @@
 "use client";
-import { useRef, useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 
-const images = Array(12).fill("/pink.jpg");
+const images = [
+    "/product/8.jpg",
+    "/product/2.jpg",
+    "/product/3.jpg",
+    "/product/4.jpg",
+    "/product/5.jpg",
+    "/product/6.jpg",
+    "/product/7.jpg",
+    "/product/1.jpg",
+];
+
 
 export default function Product() {
-    const sliderRef = useRef<HTMLDivElement>(null);
-    const intervalRef = useRef<NodeJS.Timeout | null>(null);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [showArrows, setShowArrows] = useState(false);
 
-    const cardWidth = 320 + 32; // width + gap
-
-    const scroll = (direction: "left" | "right") => {
-        if (!sliderRef.current) return;
-
-        sliderRef.current.scrollBy({
-            left: direction === "left" ? -cardWidth : cardWidth,
-            behavior: "smooth",
-        });
+    const prev = () => {
+        setActiveIndex((prevIndex) =>
+            prevIndex === 0 ? images.length - 1 : prevIndex - 1
+        );
     };
 
-    // Auto scroll
+    const next = () => {
+        setActiveIndex((prevIndex) =>
+            prevIndex === images.length - 1 ? 0 : prevIndex + 1
+        );
+    };
+
+    // Auto hide arrows after 2 seconds on touch devices
     useEffect(() => {
-        const slider = sliderRef.current;
-        if (!slider) return;
+        if (!showArrows) return;
 
-        const startAutoScroll = () => {
-            intervalRef.current = setInterval(() => {
-                if (!slider) return;
+        const timer = setTimeout(() => {
+            setShowArrows(false);
+        }, 2000);
 
-                // Loop back smoothly
-                if (
-                    slider.scrollLeft + slider.clientWidth >=
-                    slider.scrollWidth - cardWidth
-                ) {
-                    slider.scrollTo({ left: 0, behavior: "smooth" });
-                } else {
-                    slider.scrollBy({ left: cardWidth, behavior: "smooth" });
-                }
-            }, 3000);
-        };
-
-        const stopAutoScroll = () => {
-            if (intervalRef.current) clearInterval(intervalRef.current);
-        };
-
-        startAutoScroll();
-
-        slider.addEventListener("mouseenter", stopAutoScroll);
-        slider.addEventListener("mouseleave", startAutoScroll);
-
-        return () => {
-            stopAutoScroll();
-            slider.removeEventListener("mouseenter", stopAutoScroll);
-            slider.removeEventListener("mouseleave", startAutoScroll);
-        };
-    }, []);
+        return () => clearTimeout(timer);
+    }, [showArrows]);
 
     return (
-        <section className="py-28 bg-black overflow-hidden">
-            <div className="max-w-6xl mx-auto px-6 text-center">
-                {/* Title */}
-                <motion.h3
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7 }}
-                    className="text-4xl md:text-5xl font-light tracking-wide text-white mb-6"
-                >
-                    Our Product
-                </motion.h3>
-                <div className="w-16 h-px bg-gradient-to-r from-transparent via-yellow-500/70 to-transparent mx-auto mb-12" />
-
+        <section className="relative py-28 bg-black overflow-hidden">
+            {/* Elegant Background */}
+            <div className="absolute inset-0 -z-10">
+                <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-900 to-black" />
+                <div className="absolute inset-0 opacity-40">
+                    <Image
+                        src="/product/8.jpg"     // <-- add your background image here
+                        alt="Background"
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                </div>
+                <div className="absolute inset-0 bg-black/60" />
             </div>
 
-            <div className="relative">
-                {/* Left Arrow */}
-                <button
-                    onClick={() => scroll("left")}
-                    className="absolute left-6 top-1/2 -translate-y-1/2 z-20
-                               rounded-full border border-white/20 bg-black/40 backdrop-blur
-                               p-4 text-white transition-all
-                               hover:bg-white hover:text-black"
-                >
-                    <ChevronLeft size={26} />
-                </button>
+            <div className="max-w-6xl mx-auto px-6 text-center">
+                <h3 className="text-4xl md:text-5xl font-light tracking-wide text-white mb-6">
+                    Our Product
+                </h3>
+                <div className="w-16 h-px bg-gradient-to-r from-transparent via-yellow-500/70 to-transparent mx-auto mb-12" />
+            </div>
 
-                {/* Right Arrow */}
-                <button
-                    onClick={() => scroll("right")}
-                    className="absolute right-6 top-1/2 -translate-y-1/2 z-20
-                               rounded-full border border-white/20 bg-black/40 backdrop-blur
-                               p-4 text-white transition-all
-                               hover:bg-white hover:text-black"
-                >
-                    <ChevronRight size={26} />
-                </button>
-
-                {/* Fade edges */}
-                <div className="pointer-events-none absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-black via-black/80 to-transparent z-10" />
-                <div className="pointer-events-none absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-black via-black/80 to-transparent z-10" />
-
-                {/* Slider */}
+            <div className="relative flex justify-center items-center">
+                {/* Hover container */}
                 <div
-                    ref={sliderRef}
-                    className="flex gap-8 overflow-x-scroll scroll-smooth scrollbar-hide px-24"
+                    className="relative w-[360px] h-[480px] group"
+                    onTouchStart={() => setShowArrows(true)}
                 >
-                    {[...images, ...images].map((src, i) => (
-                        <div
-                            key={i}
-                            className="group relative min-w-[260px] md:min-w-[320px] h-[420px]
-                                       overflow-hidden rounded-xl bg-zinc-900 flex-shrink-0
-                                       transition-transform duration-500"
-                        >
-                            <Image
-                                src={src}
-                                alt="Product image"
-                                fill
-                                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                priority={i < 4}
-                            />
-                        </div>
-                    ))}
+                    {/* Left Arrow */}
+                    <button
+                        onClick={prev}
+                        className={`absolute left-6 top-1/2 -translate-y-1/2 z-20
+                       rounded-full border border-white/20 bg-black/40 backdrop-blur
+                       p-4 text-white transition-all
+                       opacity-0 group-hover:opacity-100
+                       ${showArrows ? "opacity-100" : ""} 
+                       hover:bg-white hover:text-black`}
+                    >
+                        <ChevronLeft size={26} />
+                    </button>
+
+                    {/* Stack */}
+                    <div className="relative w-full h-full">
+                        {images.map((src, index) => {
+                            const isActive = index === activeIndex;
+                            const offset = index - activeIndex;
+
+                            return (
+                                <motion.div
+                                    key={index}
+                                    onClick={() => setActiveIndex(index)}
+                                    className="absolute top-0 left-0 w-full h-full rounded-xl overflow-hidden cursor-pointer"
+                                    animate={{
+                                        zIndex: isActive ? 10 : 5,
+                                        scale: isActive ? 1 : 0.9,
+                                        x: offset * 12,
+                                        y: Math.abs(offset) * 10,
+                                        opacity: isActive ? 1 : 0.8,
+                                        rotate: offset * 2,
+                                    }}
+                                    transition={{ type: "spring", stiffness: 150, damping: 20 }}
+                                >
+                                    <Image
+                                        src={src}
+                                        alt="Product image"
+                                        fill
+                                        className="object-cover"
+                                        priority={index < 2}
+                                    />
+                                </motion.div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Right Arrow */}
+                    <button
+                        onClick={next}
+                        className={`absolute right-6 top-1/2 -translate-y-1/2 z-20
+                       rounded-full border border-white/20 bg-black/40 backdrop-blur
+                       p-4 text-white transition-all
+                       opacity-0 group-hover:opacity-100
+                       ${showArrows ? "opacity-100" : ""} 
+                       hover:bg-white hover:text-black`}
+                    >
+                        <ChevronRight size={26} />
+                    </button>
                 </div>
             </div>
         </section>
