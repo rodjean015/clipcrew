@@ -4,17 +4,17 @@ import Image from "next/image";
 
 const items = [
     {
-        image: "/pink.jpg",
+        image: "/product/1.jpg",
         title: "Premium Cut",
         description: "Precision haircut crafted for a sharp, modern look."
     },
     {
-        image: "/pink.jpg",
+        image: "/product/6.jpg",
         title: "Beard Styling",
         description: "Clean lines and expert shaping for a bold finish."
     },
     {
-        image: "/pink.jpg",
+        image: "/product/3.jpg",
         title: "Hair Treatment",
         description: "Revitalize your hair with premium care products."
     },
