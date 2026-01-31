@@ -51,7 +51,7 @@ export default function Navbar() {
                             priority
                             className="rounded-full"
                         />
-                        <h1 className="text-xl md:text-2xl font-semibold text-white tracking-widest">
+                        <h1 className="text-xl md:text-xl font-semibold text-white tracking-widest">
                             CLIPCREW
                         </h1>
                     </div>
