@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -18,48 +18,23 @@ const images = [
 
 
 export default function Product() {
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [showArrows, setShowArrows] = useState(false);
+    const sliderRef = useRef<HTMLDivElement>(null);
 
-    const prev = () => {
-        setActiveIndex((prevIndex) =>
-            prevIndex === 0 ? images.length - 1 : prevIndex - 1
-        );
+    const scroll = (direction: "left" | "right") => {
+        if (!sliderRef.current) return;
+
+        const cardWidth = 320 + 24; // width + gap
+        sliderRef.current.scrollBy({
+            left: direction === "left" ? -cardWidth : cardWidth,
+            behavior: "smooth",
+        });
     };
-
-    const next = () => {
-        setActiveIndex((prevIndex) =>
-            prevIndex === images.length - 1 ? 0 : prevIndex + 1
-        );
-    };
-
-    // Auto hide arrows after 2 seconds on touch devices
-    useEffect(() => {
-        if (!showArrows) return;
-
-        const timer = setTimeout(() => {
-            setShowArrows(false);
-        }, 2000);
-
-        return () => clearTimeout(timer);
-    }, [showArrows]);
 
     return (
-        <section className="relative py-28 bg-black overflow-hidden" id="product">
-            {/* Elegant Background */}
-            <div className="absolute inset-0 -z-10">
-                <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-900 to-black" />
-                <div className="absolute inset-0 opacity-40">
-                    <Image
-                        src="/product/8.jpg"     // <-- add your background image here
-                        alt="Background"
-                        fill
-                        className="object-cover"
-                        priority
-                    />
-                </div>
-                <div className="absolute inset-0 bg-black/60" />
-            </div>
+        <section
+            className="relative isolate py-28 bg-black overflow-hidden"
+            id="product"
+        >
 
             <div className="max-w-6xl mx-auto px-6 text-center">
                 {/* Title */}
@@ -76,70 +51,46 @@ export default function Product() {
                 <div className="w-16 h-px bg-gradient-to-r from-transparent via-yellow-500/70 to-transparent mx-auto mb-12" />
             </div>
 
-            <div className="relative flex justify-center items-center">
-                {/* Hover container */}
-                <div
-                    className="relative w-[360px] h-[480px] group"
-                    onTouchStart={() => setShowArrows(true)}
+            <div className="relative">
+                {/* Left Arrow */}
+                <button
+                    onClick={() => scroll("left")}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-black/60 border border-white/20 text-white hover:bg-black transition"
                 >
-                    {/* Left Arrow */}
-                    <button
-                        onClick={prev}
-                        className={`absolute left-6 top-1/2 -translate-y-1/2 z-20
-                       rounded-full border border-white/20 bg-black/40 backdrop-blur
-                       p-4 text-white transition-all
-                       opacity-0 group-hover:opacity-100
-                       ${showArrows ? "opacity-100" : ""} 
-                       hover:bg-white hover:text-black`}
-                    >
-                        <ChevronLeft size={26} />
-                    </button>
+                    <ChevronLeft size={28} />
+                </button>
 
-                    {/* Stack */}
-                    <div className="relative w-full h-full">
-                        {images.map((src, index) => {
-                            const isActive = index === activeIndex;
-                            const offset = index - activeIndex;
+                {/* Right Arrow */}
+                <button
+                    onClick={() => scroll("right")}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-black/60 border border-white/20 text-white hover:bg-black transition"
+                >
+                    <ChevronRight size={28} />
+                </button>
 
-                            return (
-                                <motion.div
-                                    key={index}
-                                    onClick={() => setActiveIndex(index)}
-                                    className="absolute top-0 left-0 w-full h-full rounded-xl overflow-hidden cursor-pointer"
-                                    animate={{
-                                        zIndex: isActive ? 10 : 5,
-                                        scale: isActive ? 1 : 0.9,
-                                        x: offset * 12,
-                                        y: Math.abs(offset) * 10,
-                                        opacity: isActive ? 1 : 0.8,
-                                        rotate: offset * 2,
-                                    }}
-                                    transition={{ type: "spring", stiffness: 150, damping: 20 }}
-                                >
-                                    <Image
-                                        src={src}
-                                        alt="Product image"
-                                        fill
-                                        className="object-cover"
-                                        priority={index < 2}
-                                    />
-                                </motion.div>
-                            );
-                        })}
-                    </div>
+                {/* Fade edges */}
+                <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent z-10" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent z-10" />
 
-                    {/* Right Arrow */}
-                    <button
-                        onClick={next}
-                        className={`absolute right-6 top-1/2 -translate-y-1/2 z-20
-                       rounded-full border border-white/20 bg-black/40 backdrop-blur
-                       p-4 text-white transition-all
-                       opacity-0 group-hover:opacity-100
-                       ${showArrows ? "opacity-100" : ""} 
-                       hover:bg-white hover:text-black`}
-                    >
-                        <ChevronRight size={26} />
-                    </button>
+                {/* Slider */}
+                <div
+                    ref={sliderRef}
+                    className="flex gap-6 overflow-x-scroll scroll-smooth scrollbar-hide px-16"
+                >
+                    {[...images, ...images].map((src, i) => (
+                        <div
+                            key={i}
+                            className="min-w-[260px] md:min-w-[320px] h-130 relative overflow-hidden bg-zinc-800 flex-shrink-0"
+                        >
+                            <Image
+                                src={src}
+                                alt="Product image"
+                                fill
+                                className="object-cover"
+                                priority={i < 4}
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

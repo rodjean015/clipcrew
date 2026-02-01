@@ -52,8 +52,7 @@ export default function Contact() {
                             label: "Hours",
                             content: (
                                 <>
-                                    Mon – Sat: 9:00am – 7:00pm<br />
-                                    Sunday: Closed
+                                    Mon - Sun: <br /> 9:00am - 7:00pm
                                 </>
                             ),
                         },

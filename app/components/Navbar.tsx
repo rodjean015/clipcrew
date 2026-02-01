@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 
 const navItems = [
     { label: "Our Product", id: "product" },
-    { label: "About Us", id: "about" },
+    { label: "Essentials", id: "clothing" },
     { label: "Contact Us", id: "contact" },
 ];
 
@@ -38,7 +38,7 @@ export default function Navbar() {
             className={`fixed top-4 left-1/2 transform -translate-x-1/2 w-[92%] max-w-7xl z-50 transition-transform duration-300 ${visible ? "translate-y-0" : "-translate-y-24"
                 }`}
         >
-            <div className="rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 shadow-xl">
+            <div className="rounded bg-black/40 backdrop-blur-md border border-white/10 shadow-xl">
                 <div className="px-6 py-4 flex justify-between items-center">
 
                     {/* Logo */}
