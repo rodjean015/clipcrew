@@ -25,7 +25,7 @@ export default function Contact() {
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.1 }}
-                    className="text-zinc-400 text-lg max-w-2xl mx-auto mb-20 leading-relaxed"
+                    className="text-zinc-200 text-lg max-w-2xl mx-auto mb-20 leading-relaxed"
                 >
                     Visit our studio for a refined grooming experience. Whether you’re
                     booking an appointment or have a question, we’re here to help.
@@ -52,19 +52,19 @@ export default function Contact() {
                             label: "Hours",
                             content: (
                                 <>
-                                    Mon - Sun: <br /> 9:00am - 7:00pm
+                                    Mon - Sun: <br /> 10:00am - 8:00pm
                                 </>
                             ),
                         },
                         {
                             label: "Follow Us",
                             content: (
-                                <div className="flex justify-center gap-8">
-                                    {[FaInstagram, FaFacebookF].map((Icon, i) => (
+                                <div className="flex justify-center gap-4">
+                                    {[FaFacebookF, FaInstagram].map((Icon, i) => (
                                         <a
                                             key={i}
                                             href="#"
-                                            className="text-zinc-500 transition-all duration-300
+                                            className="text-zinc-300 transition-all duration-300
                        hover:text-yellow-500
                        hover:scale-110
                        hover:drop-shadow-[0_0_10px_rgba(212,175,55,0.5)]"
@@ -83,12 +83,12 @@ export default function Contact() {
                             transition={{ duration: 0.7, delay: 0.15 * index }}
                             className="relative rounded-xl border border-white/10 bg-zinc-950/40 p-8"
                         >
-                            <p className="text-xs uppercase tracking-widest text-zinc-300 mb-4">
+                            <p className="text-xs uppercase tracking-widest text-yellow-600 mb-4">
                                 {item.label}
                             </p>
 
                             {/* Change from <p> to <div> to avoid nesting errors */}
-                            <div className="text-zinc-500 leading-relaxed">
+                            <div className="text-zinc-100 leading-relaxed ">
                                 {item.content}
                             </div>
                         </motion.div>

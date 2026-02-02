@@ -24,17 +24,6 @@ export default function Service() {
     return (
         <section className="py-28 bg-black" id="about">
            <div className="w-full px-6 text-center">
-                <motion.h3
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7 }}
-                    className="text-4xl md:text-5xl font-light tracking-wide text-white mb-6"
-                >
-                    Services
-                </motion.h3>
-
-                <div className="w-16 h-px bg-gradient-to-r from-transparent via-yellow-500/70 to-transparent mx-auto mb-12" />
-
                 {/* Reduced gap */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                     {items.map((item, index) => (

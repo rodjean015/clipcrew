@@ -45,7 +45,7 @@ export default function Features() {
                     transition={{ duration: 0.7 }}
                     className="text-4xl md:text-5xl font-light tracking-wide text-white mb-6"
                 >
-                    Features
+                    About Us
                 </motion.h3>
 
                 <div className="w-16 h-px bg-gradient-to-r from-transparent via-yellow-500/70 to-transparent mx-auto mb-12" />

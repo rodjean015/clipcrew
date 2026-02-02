@@ -37,17 +37,15 @@ export default function Clothing() {
         >
 
             <div className="max-w-6xl mx-auto px-6 text-center">
-                {/* Title */}
                 <motion.h3
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7 }}
                     className="text-4xl md:text-5xl font-light tracking-wide text-white mb-6"
                 >
-                    Essentials
+                    Highlights
                 </motion.h3>
 
-                {/* Divider */}
                 <div className="w-16 h-px bg-gradient-to-r from-transparent via-yellow-500/70 to-transparent mx-auto mb-12" />
             </div>
 
