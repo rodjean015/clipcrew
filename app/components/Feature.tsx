@@ -18,12 +18,27 @@ const items = [
         title: "Hair Treatment",
         description: "Revitalize your hair with premium care products."
     },
+    {
+        image: "/product/2.jpg",
+        title: "Premium Cut",
+        description: "Precision haircut crafted for a sharp, modern look."
+    },
+    {
+        image: "/product/9.jpg",
+        title: "Beard Styling",
+        description: "Clean lines and expert shaping for a bold finish."
+    },
+    {
+        image: "/product/4.jpg",
+        title: "Hair Treatment",
+        description: "Revitalize your hair with premium care products."
+    },
 ];
 
 export default function Features() {
     return (
         <section className="py-28 bg-black" id="feature">
-            <div className="w-full px-6 text-center">
+            <div className="w-full max-w-7xl mx-auto text-center">
                 <motion.h3
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -46,7 +61,7 @@ export default function Features() {
                         >
                             {/* Image with padding */}
                             <div className="p-8">
-                                <div className="relative aspect-square w-full overflow-hidden">
+                                <div className="relative h-[300px] overflow-hidden">
                                     <Image
                                         src={item.image}
                                         alt={item.title}
